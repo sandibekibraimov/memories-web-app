@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dbConnect from './db/dbConnect.js';
 import dotenv from 'dotenv';
+import postRoutes from './routes/postRoutes.js';
 
 dotenv.config();
 
@@ -10,6 +11,7 @@ dbConnect();
 
 app.use(express.json());
 app.use(cors());
+app.use('/api/posts', postRoutes);
 
 const PORT = process.env.PORT || 5000;
 

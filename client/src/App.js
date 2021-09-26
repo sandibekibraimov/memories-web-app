@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import memories from './assets/images/memories.png';
 import Posts from './components/Posts/Posts';
 import Form from './components/Form/Form';
-import { getPosts } from './redux/actions/postActions';
+import { fetchPosts } from './redux/actions/postActions';
 import useStyles from './styles';
 
 const App = () => {
@@ -12,7 +12,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getPosts());
+    dispatch(fetchPosts());
   }, [dispatch]);
 
   return (

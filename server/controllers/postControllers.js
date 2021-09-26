@@ -1,4 +1,4 @@
-import { response } from 'express';
+import mongoose from 'mongoose';
 import Post from '../models/Post.js';
 
 // getting all posts route
@@ -25,3 +25,20 @@ export const createPost = async (req, res) => {
     res.status(404).json({ msg: error.message });
   }
 };
+
+// // updating a post route
+// export const updatePost = async (res, res) => {
+//   const id = req.params;
+//   const post = req.body;
+
+//   if (!mongoose.Types.ObjectId.isValid(id))
+//     return res.status(404).send('No post with that Id');
+
+//   try {
+//     const updatedPost = await Post.findByIdAndUpdate(id, post, { new: true });
+//     res.status(200).json(updatePost);
+//   } catch (error) {
+//     console.log(error);
+//     res.status(404).json({ msg: error.message });
+//   }
+// };

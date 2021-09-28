@@ -66,3 +66,29 @@ export const deletePost = async (req, res) => {
     res.status(404).json({ msg: error.message });
   }
 };
+
+// like post route
+export const likePost = async (req, res) => {
+  const { id } = req.params;
+  // const likes = req.body.likeCount;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).send('No post with that Id');
+  }
+
+  try {
+    const post = await Post.findById(id);
+    const updatedPost = await Post.findByIdAndUpdate(
+      id,
+      {
+        likeCount: post.likeCount + 1,
+      },
+      { new: true }
+    );
+
+    res.status(200).json(updatedPost);
+  } catch (error) {
+    console.log(error);
+    res.status(404).json({ msg: error.message });
+  }
+};

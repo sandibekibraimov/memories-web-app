@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 export const GET_POSTS_REQUEST = 'GET_POSTS_REQUEST';
 export const GET_POSTS_SUCCESS = 'GET_POSTS_SUCCESS';
 export const GET_POSTS_FAILED = 'GET_POSTS_FAILED';
@@ -12,6 +11,9 @@ export const UPDATE_POST_FAILED = 'UPDATE_POST_FAILED';
 export const DELETE_POST_REQUEST = 'DELETE_POST_REQUEST';
 export const DELETE_POST_SUCCESS = 'DELETE_POST_SUCCESS';
 export const DELETE_POST_FAILED = 'DELETE_POST_FAILED';
+export const LIKED_POST_REQUEST = 'LIKED_POST_REQUEST';
+export const LIKED_POST_SUCCESS = 'LIKED_POST_SUCCESS';
+export const LIKED_POST_FAILED = 'LIKED_POST_FAILED';
 
 const BASE_URL = 'http://localhost:5000/api/posts';
 
@@ -97,6 +99,27 @@ export const deletePost = (id) => async (dispatch) => {
     console.log(error);
     dispatch({
       type: DELETE_POST_FAILED,
+      payload: error,
+    });
+  }
+};
+
+export const likePost = (id) => async (dispatch) => {
+  dispatch({
+    type: LIKED_POST_REQUEST,
+  });
+
+  try {
+    const { data } = await axios.patch(`${BASE_URL}/${id}/likePost`);
+
+    dispatch({
+      type: LIKED_POST_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: LIKED_POST_FAILED,
       payload: error,
     });
   }

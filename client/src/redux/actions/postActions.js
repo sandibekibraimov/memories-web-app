@@ -9,6 +9,9 @@ export const CREATE_POST_FAILED = 'CREATE_POST_FAILED';
 export const UPDATE_POST_REQUEST = 'UPDATE_POST_REQUEST';
 export const UPDATE_POST_SUCCESS = 'UPDATE_POST_SUCCESS';
 export const UPDATE_POST_FAILED = 'UPDATE_POST_FAILED';
+export const DELETE_POST_REQUEST = 'DELETE_POST_REQUEST';
+export const DELETE_POST_SUCCESS = 'DELETE_POST_SUCCESS';
+export const DELETE_POST_FAILED = 'DELETE_POST_FAILED';
 
 const BASE_URL = 'http://localhost:5000/api/posts';
 
@@ -55,6 +58,7 @@ export const createPost = (post) => async (dispatch) => {
   }
 };
 
+// edit post
 export const updatePost = (id, updatedPost) => async (dispatch) => {
   dispatch({
     type: UPDATE_POST_REQUEST,
@@ -71,6 +75,28 @@ export const updatePost = (id, updatedPost) => async (dispatch) => {
     console.log(error);
     dispatch({
       type: UPDATE_POST_FAILED,
+      payload: error,
+    });
+  }
+};
+
+// delete post by id
+export const deletePost = (id) => async (dispatch) => {
+  dispatch({
+    type: DELETE_POST_REQUEST,
+  });
+
+  try {
+    await axios.delete(`${BASE_URL}/${id}`);
+
+    dispatch({
+      type: DELETE_POST_SUCCESS,
+      payload: id,
+    });
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: DELETE_POST_FAILED,
       payload: error,
     });
   }

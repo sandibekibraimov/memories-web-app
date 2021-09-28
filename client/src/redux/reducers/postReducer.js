@@ -8,6 +8,9 @@ import {
   UPDATE_POST_FAILED,
   UPDATE_POST_SUCCESS,
   UPDATE_POST_REQUEST,
+  DELETE_POST_FAILED,
+  DELETE_POST_SUCCESS,
+  DELETE_POST_REQUEST,
 } from '../actions/postActions';
 
 const initialState = {
@@ -74,6 +77,25 @@ export const postReducer = (state = initialState, action) => {
       };
 
     case UPDATE_POST_FAILED:
+      return {
+        ...state,
+        error: payload,
+      };
+
+    case DELETE_POST_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+
+    case DELETE_POST_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        data: state.data.filter((post) => post._id !== payload),
+      };
+
+    case DELETE_POST_FAILED:
       return {
         ...state,
         error: payload,

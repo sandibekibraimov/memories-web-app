@@ -1,19 +1,5 @@
 import axios from 'axios';
-export const GET_POSTS_REQUEST = 'GET_POSTS_REQUEST';
-export const GET_POSTS_SUCCESS = 'GET_POSTS_SUCCESS';
-export const GET_POSTS_FAILED = 'GET_POSTS_FAILED';
-export const CREATE_POST_REQUEST = 'CREATE_POST_REQUEST';
-export const CREATE_POST_SUCCESS = 'CREATE_POST_SUCCESS';
-export const CREATE_POST_FAILED = 'CREATE_POST_FAILED';
-export const UPDATE_POST_REQUEST = 'UPDATE_POST_REQUEST';
-export const UPDATE_POST_SUCCESS = 'UPDATE_POST_SUCCESS';
-export const UPDATE_POST_FAILED = 'UPDATE_POST_FAILED';
-export const DELETE_POST_REQUEST = 'DELETE_POST_REQUEST';
-export const DELETE_POST_SUCCESS = 'DELETE_POST_SUCCESS';
-export const DELETE_POST_FAILED = 'DELETE_POST_FAILED';
-export const LIKED_POST_REQUEST = 'LIKED_POST_REQUEST';
-export const LIKED_POST_SUCCESS = 'LIKED_POST_SUCCESS';
-export const LIKED_POST_FAILED = 'LIKED_POST_FAILED';
+import * as actions from '../constants/actionTypes.js';
 
 const BASE_URL = 'http://localhost:5000/api/posts';
 
@@ -21,19 +7,19 @@ const BASE_URL = 'http://localhost:5000/api/posts';
 // fetching all posts
 export const fetchPosts = () => async (dispatch) => {
   dispatch({
-    type: GET_POSTS_REQUEST,
+    type: actions.GET_POSTS_REQUEST,
   });
 
   try {
     const { data } = await axios.get(`${BASE_URL}`);
 
     dispatch({
-      type: GET_POSTS_SUCCESS,
+      type: actions.GET_POSTS_SUCCESS,
       payload: data,
     });
   } catch (error) {
     dispatch({
-      type: GET_POSTS_FAILED,
+      type: actions.GET_POSTS_FAILED,
       payload: error,
     });
   }
@@ -43,18 +29,18 @@ export const fetchPosts = () => async (dispatch) => {
 
 export const createPost = (post) => async (dispatch) => {
   dispatch({
-    type: CREATE_POST_REQUEST,
+    type: actions.CREATE_POST_REQUEST,
   });
 
   try {
     const { data } = await axios.post(`${BASE_URL}`, { post });
     dispatch({
-      type: CREATE_POST_SUCCESS,
+      type: actions.CREATE_POST_SUCCESS,
       payload: data,
     });
   } catch (error) {
     dispatch({
-      type: CREATE_POST_FAILED,
+      type: actions.CREATE_POST_FAILED,
       payload: error,
     });
   }
@@ -63,20 +49,20 @@ export const createPost = (post) => async (dispatch) => {
 // edit post
 export const updatePost = (id, updatedPost) => async (dispatch) => {
   dispatch({
-    type: UPDATE_POST_REQUEST,
+    type: actions.UPDATE_POST_REQUEST,
   });
 
   try {
     const { data } = await axios.patch(`${BASE_URL}/${id}`, updatedPost);
 
     dispatch({
-      type: UPDATE_POST_SUCCESS,
+      type: actions.UPDATE_POST_SUCCESS,
       payload: data,
     });
   } catch (error) {
     console.log(error);
     dispatch({
-      type: UPDATE_POST_FAILED,
+      type: actions.UPDATE_POST_FAILED,
       payload: error,
     });
   }
@@ -85,20 +71,20 @@ export const updatePost = (id, updatedPost) => async (dispatch) => {
 // delete post by id
 export const deletePost = (id) => async (dispatch) => {
   dispatch({
-    type: DELETE_POST_REQUEST,
+    type: actions.DELETE_POST_REQUEST,
   });
 
   try {
     await axios.delete(`${BASE_URL}/${id}`);
 
     dispatch({
-      type: DELETE_POST_SUCCESS,
+      type: actions.DELETE_POST_SUCCESS,
       payload: id,
     });
   } catch (error) {
     console.log(error);
     dispatch({
-      type: DELETE_POST_FAILED,
+      type: actions.DELETE_POST_FAILED,
       payload: error,
     });
   }
@@ -106,20 +92,20 @@ export const deletePost = (id) => async (dispatch) => {
 
 export const likePost = (id) => async (dispatch) => {
   dispatch({
-    type: LIKED_POST_REQUEST,
+    type: actions.LIKED_POST_REQUEST,
   });
 
   try {
     const { data } = await axios.patch(`${BASE_URL}/${id}/likePost`);
 
     dispatch({
-      type: LIKED_POST_SUCCESS,
+      type: actions.LIKED_POST_SUCCESS,
       payload: data,
     });
   } catch (error) {
     console.log(error);
     dispatch({
-      type: LIKED_POST_FAILED,
+      type: actions.LIKED_POST_FAILED,
       payload: error,
     });
   }

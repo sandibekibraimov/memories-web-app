@@ -5,6 +5,9 @@ import {
   CREATE_POST_SUCCESS,
   CREATE_POST_REQUEST,
   CREATE_POST_FAILED,
+  UPDATE_POST_FAILED,
+  UPDATE_POST_SUCCESS,
+  UPDATE_POST_REQUEST,
 } from '../actions/postActions';
 
 const initialState = {
@@ -50,6 +53,27 @@ export const postReducer = (state = initialState, action) => {
       };
 
     case CREATE_POST_FAILED:
+      return {
+        ...state,
+        error: payload,
+      };
+
+    case UPDATE_POST_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+
+    case UPDATE_POST_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        data: state.data.map((post) =>
+          post._id === payload._id ? payload : post
+        ),
+      };
+
+    case UPDATE_POST_FAILED:
       return {
         ...state,
         error: payload,
